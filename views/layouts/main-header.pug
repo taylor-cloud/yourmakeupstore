@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{pageTitle}
+
+        link(rel="shortcut icon", href="https://image.flaticon.com/icons/svg/3105/3105629.svg", type="image/x-icon")
+
+        //- Google Fonts
+
+        //- Bebas Neue
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap")
+        //- Roboto Condensed
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap")
+        
+        //- FontAwesome
+        script(src="https://kit.fontawesome.com/91048f9f42.js")
+
+        //- CSS
+        
+        //- Bootstrap
+        link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+        //- My CSS
+        link(rel="stylesheet", href="/css/main.css")
+
+        block styles
+        
+    body
+    
+        block navbar
+
+        block navbar-admin
+        
+        //- Scripts
+
+        //- JQuery
+        script(src="/jquery/jquery-3.0.0.slim.min.js")
+        //- Popper
+        script(src="/popper/popper.min.js")
+        //- Bootstrap JS
+        script(src="/bootstrap/js/bootstrap.min.js")
+
+        block scripts

@@ -1,0 +1,76 @@
+extends main-header.pug
+
+block navbar
+
+    //- NavBar
+    .container-fluid
+        
+        //- NavBar superior
+        section#superior-navbar 
+            .row.align-items-center
+
+                //- Barra búsqueda
+                .col-lg-4.col-sm-12
+                    form.form-inline.navbar-form(action="/productos/product-search", method="get")
+                        .input-group.mx-auto
+                            input.form-control(type='search' name='search' placeholder='Buscar producto' aria-label='Search')
+
+                            span.input-group-btn
+                                button.btn.btn-outline-success.__my-btn(type='submit') <i class="fas fa-search __fa-search-icon"></i>
+
+                //- Logo
+                .col-lg-4.col-sm-12
+                    h1.nav-link.text-center.__logo(href='/') YOURMAKEUPSTORE
+
+                //- Cuentas, carro compras
+                .col-lg-4.col-sm-12
+                    .row.justify-content-center
+                        if isAuth
+                            .col-sm-4.text-center
+                                a.__black-link(href='/admin/dashboard') Admin
+                            .col-sm-4.text-center
+                                a.__black-link(href='/cart') Carrito
+                            .col-sm-4.text-center
+                                a.__black-link(href='/user/logout') <i class="fas fa-power-off"></i>
+                        else 
+                            .col-sm-4.text-center
+                                a.__black-link(href='/user/sign-up') Registrarse
+                            .col-sm-4.text-center
+                                a.__black-link(href='/user/sign-in') Iniciar sesión
+                
+        //- NavBar inferior
+        section#main-navbar
+            nav.navbar.navbar-expand-lg.navbar-dark.__my-navbar
+                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarTogglerDemo01')
+                    span.navbar-toggler-icon
+
+                #navbarTogglerDemo01.collapse.navbar-collapse
+                    ul.navbar-nav.mx-auto
+
+                        //- Home
+                        li.nav-item
+                            a.nav-link(href='/') Home
+
+                        //- Maquillaje
+                        li.nav-item.dropdown
+                            a#dropdownMakeup.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' value="1") Maquillaje
+                            #makeup.dropdown-menu(aria-labelledby='#dropdownMakeup')
+                            
+                        //- SkinCare
+                        li.nav-item.dropdown
+                            a#dropdownSkincare.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' value="2") Skincare
+                            #skincare.dropdown-menu(aria-labelledby='dropdownSkincare')
+
+                        //- Cabello
+                        li.nav-item.dropdown
+                            a#dropdownHair.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' value="3") Cabello
+                            #hair.dropdown-menu(aria-labelledby='dropdownHair')
+                        
+                        //- Accesorios
+                        li.nav-item.dropdown
+                            a#dropdownAccesories.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' value="4") Accesorios
+                            #accesories.dropdown-menu(aria-labelledby='dropdownAccesories')
+      
+        block content
+
+    script(type='module' src="/js/user-fill-subcategory.js")

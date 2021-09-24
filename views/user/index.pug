@@ -1,0 +1,61 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/products.css")
+
+block content
+
+    //- Carrusel
+    section#carousel
+        .container-fluid
+            #carouselExampleIndicators.carousel.slide(data-ride='carousel')
+                ol.carousel-indicators
+                    li.active(data-target='#carouselExampleIndicators' data-slide-to='0')
+                    li(data-target='#carouselExampleIndicators' data-slide-to='1')
+                    li(data-target='#carouselExampleIndicators' data-slide-to='2')
+                .carousel-inner
+                    .carousel-item.active
+                        img.d-block.w-100(src='/img/carousel/4.jpg' alt='First slide')
+                    .carousel-item
+                        img.d-block.w-100(src='/img/carousel/5.jpg' alt='Second slide')
+                    .carousel-item
+                        img.d-block.w-100(src='/img/carousel/6.jpg' alt='Third slide')
+                a.carousel-control-prev(href='#carouselExampleIndicators' role='button' data-slide='prev')
+                    span.carousel-control-prev-icon(aria-hidden='true')
+                    span.sr-only Previous
+                a.carousel-control-next(href='#carouselExampleIndicators' role='button' data-slide='next')
+                    span.carousel-control-next-icon(aria-hidden='true')
+                    span.sr-only Next
+
+    //- Nuevos productos
+    section#products.text-center
+        .__my-container
+            hr.__separator
+            h1.__big-title Nuevos Productos
+            hr.__separator
+
+            .row.product-row
+                if (products.length > 0)
+                    each product in products
+                        .col-lg-4.col-sm-12.product-row
+                            .card.__my-card.mx-auto
+                                .embed-responsive.embed-responsive-1by1
+                                    img.card-img-top.embed-responsive-item(alt='Card image cap' src=product.productImgurl)
+                                .card-body
+                                    h5.card-title #{product.productName}
+                                    p.card-text.__my-card-brand #{product.brand.brandName}
+                                    p.card-text.__my-card-price $#{product.productPrice}
+
+                                    form.__product-btn(action="/cart/add-product", method="POST", target="_blank")
+                                        button.btn.btn-outline.btn-block.__my-btn-black(type='submit' name='product' value=product.idProduct) Agregar al carrito
+                                    form(action="/productos/detalle", method="GET")
+                                        button.btn.btn-outline.btn-block.__my-btn-black(type='submit' name='product' value=product.idProduct) Ver
+                else
+                    p.__small-error-message.text-center No hay nuevos productos.
+
+                    
+                
+                
+
+
+                
