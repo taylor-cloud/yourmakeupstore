@@ -1,0 +1,33 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/form.css")
+
+block content
+
+    .__my-card-container
+        if messageAuth != null
+            .alert.alert-warning(role='alert') #{messageAuth}
+
+        section#form.__signin-form
+
+            //- Título
+            section#title.__my-title.text-center
+                h1.__big-title Iniciar Sesión
+                p.__small-text ¿Necesitas una cuenta? 
+                    a.__link-text(href="/user/sign-up") Regístrate
+                hr.__separator
+            
+            if messages.error
+               .alert.alert-danger(role='alert') #{messages.error}
+            
+            //- Formulario
+            form(action="/user/auth", method="post")
+                .form-group
+                    label(for='inputEmail4') Email
+                    input#inputEmail4.form-control(type='email' placeholder='Email' name='email')
+                .form-group
+                    label(for='inputPassword4') Contraseña
+                    input#inputPassword4.form-control(type='password' placeholder='Contraseña' name='password')
+                
+                button.btn.btn-lg.btn-block.__my-btn-black(type='submit') Iniciar sesión
