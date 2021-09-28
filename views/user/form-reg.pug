@@ -1,0 +1,100 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/form.css")
+
+block content
+
+    .__my-card-container
+        section#form.__register-form
+        
+            //- Título
+            section#title.__my-title.text-center
+                h1.__big-title #{pageTitle}
+                p.__small-text ¿Ya tienes una cuenta? 
+                    a.__link-text(href="/user/sign-in") Inicia sesión
+                hr.__separator
+            
+            //- Si hay mensajes de error
+            if errorMessages
+                #error-alert 
+                    each error in errorMessages
+                        .alert.alert-danger(role='alert') #{error.msg}
+
+            //- Formulario
+            form(action="/user/add-user" method="POST")
+                .form-row
+
+                    //- Nombre
+                    .form-group.col-md-4
+                        label(for='inputName') Nombre
+                        input#inputName.form-control(type='text' placeholder='Nombre' name='name')
+                    
+                    //- Apellido
+                    .form-group.col-md-4
+                        label(for='inputLastname') Apellido
+                        input#inputLastname.form-control(type='text' placeholder='Apellido' name='lastname')
+                    
+                    //- Email
+                    .form-group.col-md-4
+                        label(for='inputEmail') Email
+                        input#inputEmail.form-control(type='email' placeholder='Email' name='email')
+
+                .form-row
+
+                    //- Contraseña
+                    .form-group.col-md-6
+                        label(for='inputPassword') Contraseña
+                        input#inputPassword.form-control(type='password' placeholder='Contraseña' name='password' aria-describedby="passwordHelpBlock")
+                        small#passwordHelpBlock.form-text.text-muted La contraseña debe tener como mínimo 6 caracteres.
+                    
+                    //- Repetir contraseña
+                    .form-group.col-md-6
+                        label(for='inputConfirmPassword') Repita contraseña
+                        input#inputConfirmPassword.form-control(type='password' placeholder='Repetir contraseña' name='repeat-password')
+
+                //- Celular
+                .form-group
+                    label(for='inputCelular') Celular
+                    input#inputCelular.form-control(type='text' placeholder='Celular' name='cellphone' aria-describedby="cellphoneHelpBlock")
+                    small#cellphoneHelpBlock.form-text.text-muted Ingrese 9 dígitos.
+                
+                .form-row
+
+                    //- Región
+                    .form-group.col-md-6
+                        label(for='inputRegion') Región
+                        select#inputRegion.form-control(name='region')
+                            option(selected='') Seleccione
+                    
+                    //- Provincia
+                    .form-group.col-md-3
+                        label(for='inputProvincia') Provincia
+                        select#inputProvincia.form-control(name='provincia')
+                            option(selected='') Seleccione
+                    
+                    //- Comuna
+                    .form-group.col-md-3
+                        label(for='inputComuna') Comuna
+                        select#inputComuna.form-control(name='comuna')
+                            option(selected='') Seleccione
+                
+                .form-row
+
+                    .form-group.col-md-4
+                        label(for='inputStreet') Calle
+                        input#inputStreet.form-control(type='text' placeholder='Calle' name='street')
+
+                    .form-group.col-md-4
+                        label(for='inputNumber') Número
+                        input#inputNumber.form-control(type='text' placeholder='Número' name='addressNumber')
+                    
+                    .form-group.col-md-4
+                        label(for='inputDepartmentNumber') Departamento
+                        input#inputDepartmentNumber.form-control(type='text' placeholder='N° Departamento' name='departmentNumber')
+                    
+
+                button.btn.btn-lg.btn-block.__my-btn-black(type='submit') Registrarse
+
+block scripts
+    script(type='module' src="/js/fill-rpc.js")
