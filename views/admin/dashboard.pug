@@ -1,0 +1,31 @@
+extends ../layouts/admin-panel-layout.pug
+
+block content
+
+    .__my-card-container
+    
+        //- Título
+        section#title.__my-title.text-center
+            h1.big-title Estadísticas
+            hr.__separator
+        
+
+        //- Tarjetas de colores
+        section#admin-cards
+            .row
+                .col
+                    .card.text-white.__bg-3.__my-card-admin
+                        .__card-body
+                            h5.card-title   Ventas
+                            h1.card-text 10
+                .col
+                    .card.text-white.__bg-2.__my-card-admin
+                        .__card-body
+                            h5.card-title   Ventas semanales
+                            h1.card-text 5
+                .col
+                    .card.text-white.__bg-1.__my-card-admin
+                        .__card-body
+                            h5.card-title   Visitas mensuales
+                            h1.card-text 123141
+

@@ -1,0 +1,99 @@
+/* General */
+
+.__sidebar-nav-container {
+    display: block;
+}
+
+.__sidebar {
+    background-image: url('/img/assets/sidebar.jpg');
+    width: 16%;
+    height: 100%;
+    position: fixed;
+    padding: 0 1rem;
+}
+
+.__admin-list {
+    margin-top: 5%;
+}
+
+/* Secciones */
+
+.__admin-list-options-row {
+    margin: 1rem 0;
+}
+
+/* NavBar derecha */
+
+.__main-panel, .__nav-panel {
+    width: 84%;
+    float: right;
+    position: relative;
+}
+
+/* Titulo SideBar */
+
+.logo {
+    margin: 1.5rem 0;
+}
+
+.__panel-title {
+    font-size: 2rem;
+    color: #fcfefe;
+}
+
+/* Items SideBar */
+
+/* Iconos */
+.__fa-sidebar-icon {
+    margin-right: .5rem;
+}
+
+/* Contenedor items */
+.__list-item {
+    padding: 6%;
+    margin-bottom: .5rem;
+    border-radius: 5px;
+}
+
+.__list-item:hover {
+    background-color: rgba(255, 255, 255, 0.103);
+}
+
+/* Items y titulo*/
+.__item {
+    color: #ffffffe8;
+}
+
+.__panel-title:hover, .__item:hover {
+    color: #fcfefe; 
+    text-decoration: none;
+}
+
+.__navbar-admin {
+    padding: 0 5%;
+}
+
+/* Tarjetas - Cards */
+
+.__my-card-admin {
+    height: 200px;
+    border: none;
+    border-radius: 5px;
+}
+
+.__card-body {
+    padding: 3rem;
+}
+
+.__btn-table {
+    padding: 0;
+    margin: 0 5px;
+}
+
+.__add-btn {
+    margin: 0 1rem 0 0;
+}
+
+.__table-forms {
+    display: flex;
+}

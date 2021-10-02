@@ -1,0 +1,63 @@
+extends main-header.pug
+
+block styles
+    link(rel="stylesheet", href="/css/adminpanel.css")
+    
+block navbar-admin
+
+    //- Barra lateral
+    section#sidebar
+        .wrapper
+            .__sidebar
+                
+                //- Logo
+                .logo
+                    h1.__panel-title.text-center YOURMAKEUPSTORE
+
+                //- Items sidebar
+                ul.nav.__sidebar-nav-container
+                    li.__list-item
+                        a.__item(href="/admin/dashboard") 
+                            <i class="fas fa-home __fa-sidebar-icon"></i> Dashboard
+                    li.__list-item
+                        a.__item(href="/admin/users") 
+                            <i class="fas fa-users __fa-sidebar-icon"></i> Usuarios
+                    li.__list-item
+                        a.__item(href="/admin/products") 
+                            <i class="fas fa-archive __fa-sidebar-icon"></i> Productos
+                    li.__list-item
+                        a.__item(href="/admin/categories") 
+                            <i class="fas fa-cube  __fa-sidebar-icon"></i> Categorías
+                    li.__list-item
+                        a.__item(href="/admin/subcategories") 
+                            <i class="fas fa-cubes __fa-sidebar-icon"></i></i> Subcategorías
+                    li.__list-item
+                        a.__item(href="/admin/brands") 
+                            <i class="far fa-copyright __fa-sidebar-icon"></i> Marcas
+                    li.__list-item
+                        a.__item(href="/admin/orders") 
+                            <i class="fas fa-shipping-fast __fa-sidebar-icon"></i> Pedidos
+
+    //- NavBar     
+    section#navbar-admin
+        .__nav-panel
+            nav.navbar.navbar-expand-lg.navbar-light.bg-light.__navbar-admin
+
+                //- Doctitle
+                a.navbar-brand(href='#') #{pageTitle}
+
+                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarSupportedContent.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto
+
+                        //- Salir
+                        li.nav-item
+                            a.nav-link(href='/') <i class="fas fa-power-off"></i>
+    
+    //- Contenido
+    section#content
+        .__main-panel    
+            block content
+                    
+        
