@@ -1,0 +1,99 @@
+extends ../layouts/admin-panel-layout.pug
+
+block content
+
+    .__my-card-container
+
+        //- Título
+        section#title.__my-title.text-center
+            h1.big-title #{pageTitle}
+            hr.__separator
+        
+
+        //- Tarjetas de colores
+        section#admin-cards
+            .row
+                .col
+                    .card.text-white.__bg-1.__my-card-admin
+                        .__card-body
+                            if status == 'searching'
+                                h5.card-title Resultados
+                                h1.card-text #{users.length}
+                            else
+                                h5.card-title Usuarios
+                                h1.card-text #{users.length}
+
+    .__my-card-container
+    
+        section#users
+            .__admin-list.text-center
+                .container 
+                    h1.big-title Lista de usuarios
+                    hr.__separator
+
+                    section#users-list-actions
+                        .row.no-gutters.align-items-center.__admin-list-options-row
+
+                            //- Buscar usuarios
+                            .col
+                                form.form-inline(action='/admin/user-search')
+                                    .form-group
+                                        input#inputNumero.form-control(type='text' placeholder='Buscar' name='search')
+
+                                    button.btn.__my-btn(type='submit') <i class="fas fa-search __fa-search-icon"></i>
+                            
+                            //- Paginación
+                            .col
+                                nav(aria-label='Page navigation example')
+                                    ul.pagination.justify-content-center.mb-0
+                                        li.page-item
+                                            a.page-link(href='#' aria-label='Previous')
+                                                span(aria-hidden='true') &laquo;
+                                        li.page-item
+                                            a.page-link(href='#') 1
+                                        li.page-item
+                                            a.page-link(href='#') 2
+                                        li.page-item
+                                            a.page-link(href='#') 3
+                                        li.page-item
+                                            a.page-link(href='#' aria-label='Next')
+                                                span(aria-hidden='true') &raquo;
+                            
+                            //- Ordenar por
+                            .col
+                                .__form-container
+                                    form.form-inline
+                                        label.my-1.mr-2(for="inputOrder") Ordenar por
+                                        select#inputOrder.custom-select.my-1.mr-sm-2
+                                            option(selected value="1") Menor a mayor ID
+                                            option(value="2") Mayor a menor ID
+                                            option(value="3") Nombre
+                                            option(value="4") Apellido
+                                            option(value="5") Fecha (recientes primero)
+                                            option(value="6") Fecha (antiguos primero)
+                    
+                    //- Lista
+                    section#users-list
+                        if users.length > 0
+                            .table-responsive-lg
+                                table.table
+                                    thead
+                                        tr
+                                            th(scope="col") ID
+                                            th(scope="col") Nombre
+                                            th(scope="col") Apellido
+                                            th(scope="col") Email
+                                            th(scope="col") Fecha de registro
+
+                                    tbody#userTableBody
+                                        each user in users
+                                            tr
+                                                th(scope="row") #{user.idUser}
+                                                td #{user.person.personName}
+                                                td #{user.person.personLastname}
+                                                td #{user.userEmail}
+                                                td #{user.createdAt}
+                        else
+                            .__small-error-message No hay usuarios disponibles.
+block scripts
+    script(type='module' src="/js/sort-user.js")  
