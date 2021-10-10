@@ -1,0 +1,198 @@
+extends ../layouts/admin-panel-layout.pug
+
+block content
+
+    .__my-card-container
+
+        //- Título
+        section#title.__my-title.text-center
+            h1.big-title #{pageTitle}
+            hr.__separator
+        
+        //- Si se está eliminando
+        if (status == 'deleting')
+        
+            //- Texto confirmación
+            section#md-title.__my-title.text-center
+                p ¿Está seguro de que desea eliminar el siguiente producto?
+
+        //- Si hay mensajes de error
+        if errorMessages
+            #error-alert 
+                each error in errorMessages
+                    .alert.alert-danger(role='alert') #{error.msg}
+
+        //- Formulario
+        section#form
+            if (status == 'deleting')
+                form(action="", method="post")
+                    each product in listProduct
+                        .form-row
+
+                            //- Campo ID
+                            .form-group.col-md-1
+                                label(for='inputId') ID
+                                input#inputId.form-control(type='text' name='id' value=product.idProduct readonly)
+
+                            //- Campo Nombre
+                            .form-group.col-md-3
+                                label(for='inputName') Nombre
+                                input#inputName.form-control(type='text' name='name' value=product.productName readonly)
+
+                            //- Campo Precio
+                            .form-group.col-md-2
+                                label(for='inputPrice') Precio
+                                input#inputPrice.form-control(type='text' name='price' value=product.productPrice readonly)
+                            
+                            //- Campo Marca
+                            .form-group.col-md-3
+                                label(for='inputBrand') Marca
+                                select#inputBrand.form-control(name='brand' disabled)
+                                    option(selected value=product.brand.idBrand disabled) #{product.brand.brandName}
+
+                            //- Campo Stock
+                            .form-group.col-md-3
+                                label(for='inputStock') Stock
+                                input#inputStock.form-control(type='text' name='stock' value=product.productStock readonly)
+                            
+                        .form-row
+
+                            //- Campo Categoría
+                            .form-group.col-md-6
+                                label(for='inputCategory') Categoría
+                                select#inputCategory.form-control(name='category' disabled)
+                                    option(selected value=product.category.idCategory disabled readonly) #{product.category.categoryName}
+
+                            //- Campo Subcategoría
+                            .form-group.col-md-6
+                                label(for='inputSubcategory') Subcategoría
+                                select#inputSubcategory.form-control(name='subcategory' disabled)
+                                    option(selected value=product.subcategory.idSubcategory disabled readonly) #{product.subcategory.subcategoryName}
+
+                        .form-row
+
+                            //- Campo Descripción
+                            .form-group.col
+                                label(for='exampleFormControlTextarea1') Descripción
+                                textarea#exampleFormControlTextarea1.form-control(rows='3' name='description' readonly) #{product.productDescription}
+                    
+                    //- Boton agregar
+                    button.btn.btn-lg.btn-block.__my-btn-black(type='submit') Aceptar
+            
+            else if (status == 'editing')
+                form(action="", method="post")
+                    each product in listProduct
+                        .form-row
+
+                            //- Campo ID
+                            .form-group.col-md-1
+                                label(for='inputId') ID
+                                input#inputId.form-control(type='text' name='id' value=product.idProduct readonly)
+
+                            //- Campo Nombre
+                            .form-group.col-md-3
+                                label(for='inputName') Nombre
+                                input#inputName.form-control(type='text' name='name' value=product.productName)
+
+                            //- Campo Precio
+                            .form-group.col-md-2
+                                label(for='inputPrice') Precio
+                                input#inputPrice.form-control(type='text' name='price' value=product.productPrice)
+                            
+                            //- Campo Marca
+                            .form-group.col-md-3
+                                label(for='inputBrand') Marca
+                                select#inputBrand.form-control(name='brand' value= product.brand.idBrand)
+                                    option(selected value=product.brand.idBrand) #{product.brand.brandName}
+
+                            //- Campo Stock
+                            .form-group.col-md-3
+                                label(for='inputStock') Stock
+                                input#inputStock.form-control(type='text' name='stock' value=product.productStock)
+                            
+                        .form-row
+
+                            //- Campo Categoría
+                            .form-group.col-md-6
+                                label(for='inputCategory') Categoría
+                                select#inputCategory.form-control(name='category' value=product.category.idCategory)
+                                    option(selected value=product.category.idCategory) #{product.category.categoryName}
+
+                            //- Campo Subcategoría
+                            .form-group.col-md-6
+                                label(for='inputSubcategory') Subcategoría
+                                select#inputSubcategory.form-control(name='subcategory' value=product.subcategory.idSubcategory)
+                                    option(selected value=product.subcategory.idSubcategory) #{product.subcategory.subcategoryName}
+
+                        .form-row
+
+                            //- Campo Descripción
+                            .form-group.col
+                                label(for='exampleFormControlTextarea1') Descripción
+                                textarea#exampleFormControlTextarea1.form-control(rows='3' name='description') #{product.productDescription}
+                    //- Boton agregar
+                    button.btn.btn-lg.btn-block.__my-btn-black(type='submit') Aceptar
+                            
+            else 
+                form(action="", method="post", enctype="multipart/form-data")
+                    .form-row
+
+                        //- Campo Nombre
+                        .form-group.col-md-3
+                            label(for='inputName') Nombre
+                            input#inputName.form-control(type='text' placeholder='Nombre' name='name')
+
+                        //- Campo Precio
+                        .form-group.col-md-3
+                            label(for='inputPrice') Precio
+                            input#inputPrice.form-control(type='text' placeholder='Precio' name='price')
+                        
+                        //- Campo Marca
+                        .form-group.col-md-3
+                            label(for='inputBrand') Marca
+                            select#inputBrand.form-control(name='brand')
+                                option(selected='') Seleccione
+                                option#brandOption
+                                
+                        
+                        //- Campo Stock
+                        .form-group.col-md-3
+                            label(for='inputStock') Stock
+                            input#inputStock.form-control(type='text' placeholder='Stock' name='stock')
+                        
+                    .form-row
+
+                        //- Campo Categoría
+                        .form-group.col-md-6
+                            label(for='inputCategory') Categoría
+                            select#inputCategory.form-control(name='category')
+                                option(selected='') Seleccione
+
+                        //- Campo Subcategoría
+                        .form-group.col-md-6
+                            label(for='inputSubcategory') Subcategoría
+                            select#inputSubcategory.form-control(name='subcategory')
+                                option(selected='') Seleccione
+
+                    .form-row
+
+                        //- Campo Descripción
+                        .form-group.col
+                            label(for='exampleFormControlTextarea1') Descripción
+                            textarea#exampleFormControlTextarea1.form-control(rows='3' name='description')
+                            
+                    .form-row
+
+                        //- Campo Imagen
+                        .form-group.col
+                            .custom-file.mb-3
+                                input#validatedCustomFile.custom-file-input(type='file' name='image')
+                                label.custom-file-label(for='validatedCustomFile') Imagen
+
+                    //- Boton agregar
+                    button.btn.btn-lg.btn-block.__my-btn-black(type='submit') Aceptar
+
+block scripts
+    script(type='module' src="/js/fill-brand.js")
+    script(type='module' src="/js/fill-category.js")
+            
