@@ -1,0 +1,115 @@
+extends ../layouts/admin-panel-layout.pug
+
+block content
+
+    .__my-card-container
+    
+        //- Título
+        section#title.__my-title.text-center
+            h1.big-title #{pageTitle}
+            hr.__separator
+        
+        //- Tarjetas de colores
+        section#admin-cards
+            .row
+                .col
+                    .card.text-white.__bg-1.__my-card-admin
+                        .__card-body
+                            if status == 'searching'
+                                h5.card-title Resultados
+                                h1.card-text #{brands.length}
+                            else
+                                h5.card-title Marcas
+                                h1.card-text #{brands.length}
+    
+    .__my-card-container
+        //- Marcas
+        section#brands
+            .__admin-list.text-center
+                .container
+                
+                    h1.big-title Lista de marcas
+                    hr.__separator
+
+                    section#brands-list-actions
+                        .row.no-gutters.align-items-center.__admin-list-options-row
+                            
+                            //- Agregar marcas
+                            .col.__add-btn
+                                a.link.btn.btn-block.__my-btn(href="/admin/brand-add") Agregar
+
+                            //- Búsqueda de marcas
+                            .col
+                                form(action="/admin/search-brand")
+                                    .input-group.__search-field
+                                        input.form-control(type='search' placeholder='Buscar marca' aria-label='Search' name='search')
+                                        span.input-group-btn
+                                            button.btn.btn-outline-success.__my-btn(type='submit') <i class="fas fa-search __fa-search-icon"></i>
+                            
+                        .row.no-gutters.align-items-center.__admin-list-options-row
+
+                            //- Ordenar por
+                            .col
+                                .__form-container
+                                    form.form-inline
+                                        label.my-1.mr-2(for="inputOrder") Ordenar por
+                                        select#inputOrder.custom-select.my-1.mr-sm-2
+                                            option(selected value="1") Menor a mayor ID
+                                            option(value="2") Mayor a menor ID
+                                            option(value="3") Nombre
+                            
+                            //- Paginado
+                            .col
+                                nav(aria-label='Page navigation example')
+                                    ul.pagination.justify-content-center.mb-0
+                                        li.page-item
+                                            a.page-link(href='#' aria-label='Previous')
+                                                span(aria-hidden='true') &laquo;
+                                        li.page-item
+                                            a.page-link(href='#') 1
+                                        li.page-item
+                                            a.page-link(href='#') 2
+                                        li.page-item
+                                            a.page-link(href='#') 3
+                                        li.page-item
+                                            a.page-link(href='#' aria-label='Next')
+                                                span(aria-hidden='true') &raquo;
+                            
+                            //- Mostrar
+                            .col
+                                .__form-container
+                                    form.form-inline
+                                        label.my-1.mr-2.ml-auto(for="inlineFormCustomSelectPref") Mostrar
+                                        select.custom-select.my-1.mr-sm-2#inlineFormCustomSelectPref
+                                            option(selected) 15
+                                            option(value="1") 30
+
+                    //- Tabla de marcas
+                    section#brands-list
+                        if brands.length > 0
+                            .table-responsive-lg
+                                table.table
+                                    thead
+                                        tr
+                                            th(scope="col") ID
+                                            th(scope="col") Marca
+                                            th(scope="col") Acción
+                                    tbody#brandTableBody
+                                        each brand in brands
+                                            tr
+                                                th(scope="row") #{brand.idBrand}
+                                                td #{brand.brandName}
+                                                td  
+                                                    .__table-forms
+                                                        form.form-inline.ml-auto(action="/admin/brand-edit/", method="get")
+                                                            button.btn.btn-link.__btn-table(type="submit" name="id" value=brand.idBrand) 
+                                                                i.fas.fa-edit
+
+                                                        form.form-inline.mr-auto(action="/admin/brand-delete/", method="get")
+                                                            button.btn.btn-link.__btn-table(type="submit" name="id" value=brand.idBrand) 
+                                                                i.fas.fa-trash-alt
+                        else
+                            .__small-error-message No hay marcas disponibles.
+
+block scripts
+    script(type='module' src="/js/sort-brand.js")

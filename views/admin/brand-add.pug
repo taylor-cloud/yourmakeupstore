@@ -1,0 +1,64 @@
+extends ../layouts/admin-panel-layout.pug
+
+block content
+
+    .__my-card-container
+
+        //- Título
+        section#title.__my-title.text-center
+            h1.big-title #{pageTitle}
+            hr.__separator
+
+        //- Si se está eliminando
+        if (status == 'deleting')
+            //- Texto confirmación
+            section#md-title.__my-title.text-center
+                p ¿Está seguro de que desea eliminar la siguiente marca?
+
+        //- Alerta validación
+        if errorMessages
+            #error-alert 
+                each error in errorMessages
+                    .alert.alert-danger(role='alert') #{error.msg}
+
+        //- Formulario
+        section#form
+            form#brand-form(action="", method="post")
+                .form-row
+
+                    //- Si se está eliminando
+                    if (status == 'deleting')
+                        each brand in listBrand
+                            //- Campo ID
+                            .form-group.col
+                                label ID
+                                input.form-control(type='text' name='id' value=brand.idBrand readonly)
+                            
+                            //- Campo Nombre
+                            .form-group.col
+                                label Name
+                                input.form-control(type='text' name='name' value=brand.brandName readonly)
+
+                    //- Si se está editando
+                    else if (status == 'editing')
+                        each brand in listBrand
+                            //- Campo ID
+                            .form-group.col
+                                label(for='inputId') ID
+                                input#inputId.form-control(type='text' name='id' value=brand.idBrand readonly)
+                            
+                            //- Campo Nombre
+                            .form-group.col
+                                label(for='inputName') Name
+                                input#inputName.form-control(type='text' name='name' value=brand.brandName)
+                    
+                    //- Si se está agregando
+                    else
+                        //- Campo Nombre
+                        .form-group.col
+                            label(for='inputName') Nombre marca
+                            input#inputName.form-control(type='text' name='name')
+                
+
+                //- Boton agregar
+                button.btn.btn-lg.btn-block.__my-btn-black(type='submit') Aceptar
