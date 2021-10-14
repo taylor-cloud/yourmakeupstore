@@ -1,0 +1,62 @@
+extends ../layouts/admin-panel-layout.pug
+
+block content
+
+    .__my-card-container
+
+        //- Título
+        section#title.__my-title.text-center
+            h1.big-title #{pageTitle}
+            hr.__separator
+        
+        //- Tarjetas de colores
+        section#admin-cards
+            .row
+                .col
+                    .card.text-white.__bg-2.__my-card-admin
+                        .__card-body
+                            if status == 'searching'
+                                h5.card-title Resultados
+                                h1.card-text #{categories.length}
+                            else
+                                h5.card-title Categorías
+                                h1.card-text #{categories.length}
+    
+    .__my-card-container
+
+        //- Categorías
+        section#categories
+            .__admin-list.text-center
+                .container
+                    h1.big-title Lista de categorías
+                    hr.__separator
+
+                    section#categories-list-actions
+                        .row.no-gutters.align-items-center.__admin-list-options-row
+                            .col-6
+                                .__form-container
+                                    form.form-inline
+                                        label.my-1.mr-2(for="inputOrder") Ordenar por
+                                        select#inputOrder.custom-select.my-1.mr-sm-2
+                                            option(selected value="1") Menor a mayor ID
+                                            option(value="2") Mayor a menor ID
+                                            option(value="3") Nombre
+                            
+                    //- Lista
+                    section#categories-list
+                        if categories.length > 0   
+                            .table-responsive-lg
+                                table.table
+                                    thead
+                                        tr
+                                            th(scope="col") ID
+                                            th(scope="col") Nombre
+                                    tbody#categoryTableBody
+                                        each category in categories
+                                            tr
+                                                th(scope="row") #{category.idCategory}
+                                                td #{category.categoryName}
+                        else
+                            .__small-error-message No hay categorías disponibles.
+block scripts
+    script(type='module' src="/js/sort-category.js")
